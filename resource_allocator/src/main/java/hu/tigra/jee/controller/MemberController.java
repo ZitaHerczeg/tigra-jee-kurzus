@@ -16,7 +16,7 @@
  */
 package hu.tigra.jee.controller;
 
-import hu.tigra.jee.model.Member;
+import hu.tigra.jee.model.AllocationEntity;
 import hu.tigra.jee.service.MemberRegistration;
 
 import javax.annotation.PostConstruct;
@@ -42,11 +42,11 @@ public class MemberController {
 
     @Produces
     @Named
-    private Member newMember;
+    private AllocationEntity newMember;
 
     @PostConstruct
     public void initNewMember() {
-        newMember = new Member();
+        newMember = new AllocationEntity();
     }
 
     public void register() throws Exception {

@@ -16,7 +16,7 @@
  */
 package hu.tigra.jee.data;
 
-import hu.tigra.jee.model.Member;
+import hu.tigra.jee.model.AllocationEntity;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -33,22 +33,22 @@ public class MemberListProducer {
     @Inject
     private MemberRepository memberRepository;
 
-    private List<Member> members;
+    private List<AllocationEntity> members;
 
     // @Named provides access the return value via the EL variable name "members" in the UI (e.g.
     // Facelets or JSP view)
     @Produces
     @Named
-    public List<Member> getMembers() {
+    public List<AllocationEntity> getMembers() {
         return members;
     }
 
-    public void onMemberListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Member member) {
-        retrieveAllMembersOrderedByName();
+    public void onMemberListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final AllocationEntity member) {
+        retrieveAllMembersOrderedByEmail();
     }
 
     @PostConstruct
-    public void retrieveAllMembersOrderedByName() {
-        members = memberRepository.findAllOrderedByName();
+    public void retrieveAllMembersOrderedByEmail() {
+        members = memberRepository.findAllOrderedByEmail();
     }
 }

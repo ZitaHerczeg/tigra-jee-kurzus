@@ -16,7 +16,7 @@
  */
 package hu.tigra.jee.data;
 
-import hu.tigra.jee.model.Member;
+import hu.tigra.jee.model.AllocationEntity;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -32,14 +32,14 @@ public class MemberRepository {
     @Inject
     private EntityManager em;
 
-    public Member findById(Long id) {
-        return em.find(Member.class, id);
+    public AllocationEntity findById(Long id) {
+        return em.find(AllocationEntity.class, id);
     }
 
-    public Member findByEmail(String email) {
+    public AllocationEntity findByEmail(String email) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
-        Root<Member> member = criteria.from(Member.class);
+        CriteriaQuery<AllocationEntity> criteria = cb.createQuery(AllocationEntity.class);
+        Root<AllocationEntity> member = criteria.from(AllocationEntity.class);
         // Swap criteria statements if you would like to try out type-safe criteria queries, a new
         // feature in JPA 2.0
         // criteria.select(member).where(cb.equal(member.get(Member_.name), email));
@@ -47,14 +47,14 @@ public class MemberRepository {
         return em.createQuery(criteria).getSingleResult();
     }
 
-    public List<Member> findAllOrderedByName() {
+    public List<AllocationEntity> findAllOrderedByEmail() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
-        Root<Member> member = criteria.from(Member.class);
+        CriteriaQuery<AllocationEntity> criteria = cb.createQuery(AllocationEntity.class);
+        Root<AllocationEntity> member = criteria.from(AllocationEntity.class);
         // Swap criteria statements if you would like to try out type-safe criteria queries, a new
         // feature in JPA 2.0
         // criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
-        criteria.select(member).orderBy(cb.asc(member.get("name")));
+        criteria.select(member).orderBy(cb.asc(member.get("startDate")));
         return em.createQuery(criteria).getResultList();
     }
 }

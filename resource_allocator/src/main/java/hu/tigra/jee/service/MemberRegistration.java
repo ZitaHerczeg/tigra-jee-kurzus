@@ -16,7 +16,7 @@
  */
 package hu.tigra.jee.service;
 
-import hu.tigra.jee.model.Member;
+import hu.tigra.jee.model.AllocationEntity;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -35,10 +35,10 @@ public class MemberRegistration {
     private EntityManager em;
 
     @Inject
-    private Event<Member> memberEventSrc;
+    private Event<AllocationEntity> memberEventSrc;
 
-    public void register(Member member) throws Exception {
-        log.info("Registering " + member.getName());
+    public void register(AllocationEntity member) throws Exception {
+        log.info("Registering " + member.getEmail());
         em.persist(member);
         memberEventSrc.fire(member);
     }

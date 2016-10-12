@@ -1,6 +1,6 @@
 package hu.tigra.jee.data;
 
-import hu.tigra.jee.model.Member;
+import hu.tigra.jee.model.AllocationEntity;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -27,7 +27,7 @@ public class MemberConverter implements Converter {
         // keletkező MemberConverter-be viszont ki lesz töltve.
         EntityManager em = FacesContext.getCurrentInstance().getApplication().
                 evaluateExpressionGet(ctx, "#{memberConverterBean}", MemberConverter.class).entityManager;
-        return em.find(Member.class, Long.valueOf(value));
+        return em.find(AllocationEntity.class, Long.valueOf(value));
     }
 
     @Override

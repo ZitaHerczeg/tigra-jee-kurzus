@@ -16,8 +16,8 @@
  */
 package hu.tigra.jee.test;
 
+import hu.tigra.jee.model.AllocationEntity;
 import hu.tigra.jee.model.EqualsById;
-import hu.tigra.jee.model.Member;
 import hu.tigra.jee.service.MemberRegistration;
 import hu.tigra.jee.util.Resources;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -39,7 +39,7 @@ public class MemberRegistrationTest {
     @Deployment
     public static Archive<?> createTestArchive() {
         return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addClasses(Member.class, EqualsById.class, MemberRegistration.class, Resources.class)
+                .addClasses(AllocationEntity.class, EqualsById.class, MemberRegistration.class, Resources.class)
                 .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 // Deploy our test datasource
@@ -54,13 +54,11 @@ public class MemberRegistrationTest {
 
     @Test
     public void testRegister() throws Exception {
-        Member newMember = new Member();
-        newMember.setName("Jane Doe");
+        AllocationEntity newMember = new AllocationEntity();
         newMember.setEmail("jane@mailinator.com");
-        newMember.setPhoneNumber("2125551234");
         memberRegistration.register(newMember);
         assertNotNull(newMember.getId());
-        log.info(newMember.getName() + " was persisted with id " + newMember.getId());
+        log.info(newMember.getEmail() + " was persisted with id " + newMember.getId());
     }
 
 }
